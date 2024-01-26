@@ -15,6 +15,8 @@ function next() {
   circles[targetCircle].classList.toggle("active");
   connections[targetCircle - 1].style.backgroundColor = "var(--active-color)";
 
+  prevButton.disabled = targetCircle <= 1 ? true : false;
+
   if (targetCircle <= 4) targetCircle++;
 }
 
@@ -32,6 +34,8 @@ function prev() {
 
   circles[targetCircle - 1].classList.toggle("active");
   connections[targetCircle - 2].style.background = "var(--non-active-color)";
+
+  nextButton.disabled = targetCircle >= 5 ? true : false;
 
   if (targetCircle >= 2) targetCircle--;
 }
