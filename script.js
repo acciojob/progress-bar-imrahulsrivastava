@@ -1,31 +1,52 @@
 // Write your script here
 
-let currentNode = 1;
+const progress = document.getElementById("progress");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
+const circles = document.querySelectorAll(".circle");
 
-function navigate(direction) {
-  const currentElement = document.getElementById(currentNode);
-
-  if (direction === "next" && currentElement.nextElementSibling) {
-    let nextConnection = currentElement.nextElementSibling;
-    nextConnection.classList.add("active");
-    let nextNode = currentElement.nextElementSibling.nextElementSibling;
-    nextNode.classList.add("active");
-    currentNode++;
-  } else if (direction === "prev" && currentElement.previousElementSibling) {
-    currentElement.classList.remove("active");
-    currentElement.previousElementSibling.classList.remove("active");
-    currentNode--;
-  }
-  currentNode === 5 ? (next.disabled = true) : (next.disabled = false);
-  currentNode === 1 ? (prev.disabled = true) : (prev.disabled = false);
-}
+let currentActive = 1;
 
 next.addEventListener("click", () => {
-  navigate("next");
+  currentActive++;
+
+  if (currentActive > circles.length) {
+    currentActive = circles.length;
+  }
+
+  update();
 });
 
 prev.addEventListener("click", () => {
-  navigate("prev");
+  currentActive--;
+
+  if (currentActive < 1) {
+    currentActive = 1;
+  }
+
+  update();
 });
+
+function update() {
+  circles.forEach((circle, idx) => {
+    if (idx < currentActive) {
+      circle.classList.add("active");
+    } else {
+      circle.classList.remove("active");
+    }
+  });
+
+  const actives = document.querySelectorAll(".active");
+
+  progress.style.width =
+    ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
+
+  if (currentActive === 1) {
+    prev.disabled = true;
+  } else if (currentActive === circles.length) {
+    next.disabled = true;
+  } else {
+    prev.disabled = false;
+    next.disabled = false;
+  }
+}
