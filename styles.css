@@ -7,7 +7,7 @@
 }
 
 :root {
-  --active-color: rgb(52, 152, 219);
+  --active-color: #3498db;
   --non-active-color: rgb(224, 224, 224);
 }
 
@@ -36,8 +36,9 @@ body {
 
 .connection {
   width: 50px;
-  height: 4px;
-  background-color: var(--non-active-color);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--non-active-color);
 }
 
 #buttons-container {
@@ -56,11 +57,11 @@ button {
   font-size: medium;
 }
 
-button:first-child {
-  background-color: whitesmoke;
-  color: rgb(178, 177, 175);
-}
-
 .active {
   border-color: var(--active-color);
+  color: var(--active-color);
+}
+
+button:disabled {
+  background-color: var(--non-active-color);
 }
